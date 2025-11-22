@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package review;
+
+option go_package = "grpc-test/protobuf/review";
+
+service ReviewService {
+rpc AddReview(AddReviewRequest) returns (AddReviewResponse);
+rpc GetReviews(GetReviewsRequest) returns (GetReviewsResponse);
+rpc GetBookWithReviews(GetBookWithReviewsRequest) returns (GetBookWithReviewsResponse);
+}
+
+message Review {
+string id = 1;
+string book_id = 2;
+string user_name = 3;
+int32 rating = 4;  // 1-5 stars
+string comment = 5;
+int64 created_at = 6;
+}
+
+message AddReviewRequest {
+string book_id = 1;
+string user_name = 2;
+int32 rating = 3;
+string comment = 4;
+}
+
+message AddReviewResponse {
+string review_id = 1;
+}
+
+message GetReviewsRequest {
+string book_id = 1;
+}
+
+message GetReviewsResponse {
+repeated Review reviews = 1;
+double average_rating = 2;
+}
+
+message GetBookWithReviewsRequest {
+string book_id = 1;
+}
+
+message BookInfo {
+string id = 1;
+string title = 2;
+string author = 3;
+double price = 4;
+}
+
+message GetBookWithReviewsResponse {
+BookInfo book = 1;
+repeated Review reviews = 2;
+double average_rating = 3;
+}
