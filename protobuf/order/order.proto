@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package order;
+
+option go_package = "grpc-test/protobuf/order";
+
+service OrderService {
+  rpc AddOrder(AddOrderRequest) returns (AddOrderResponse);
+  rpc GetOrder(GetOrderRequest) returns (GetOrderResponse);
+  rpc DeleteOrder(DeleteOrderRequest) returns (DeleteOrderResponse);
+  // TODO: EditOrder
+}
+
+message Order {
+  string id = 1;
+  string book_id = 2;
+  Status status = 3;
+  int32 count = 4;
+}
+
+message AddOrderRequest {
+  string book_id = 1;
+  string user_name = 2;
+  int32 count = 3;
+}
+
+message AddOrderResponse {
+  string order_id = 1;
+}
+
+enum Status {
+  Status_Pending = 0;
+  Status_Confirmed = 1;
+  Status_Shipped = 2;
+}
+
+message GetOrderRequest {
+  string order_id = 1;
+}
+
+message GetOrderResponse {
+  string book_id = 1;
+  string user_name = 2;
+  int32  count = 3;
+}
+
+message DeleteOrderRequest {
+  string order_id = 1;
+}
+
+message DeleteOrderResponse {
+  string order_id = 1;
+}
+
